@@ -23,17 +23,5 @@ while ! test -d /var/lib/rancher/k3s/server/manifests; do
     sleep 1
 done
 
-# ccm
-kubectl -n kube-system create secret generic hcloud --from-literal=token=${hcloud_token} --from-literal=network=${hcloud_network}
-cat <<'EOF' | sudo tee /var/lib/rancher/k3s/server/manifests/hcloud-ccm.yaml
-${ccm_manifest}
-EOF
-
-# csi
-kubectl -n kube-system create secret generic hcloud-csi --from-literal=token=${hcloud_token}
-cat <<'EOF' | sudo tee /var/lib/rancher/k3s/server/manifests/hcloud-csi.yaml
-${csi_manifest}
-EOF
-
 # additional user_data
 ${additional_user_data}
