@@ -15,7 +15,12 @@ curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=${k3s_channel} K3S_TOKEN=${k3
     --disable traefik \
     --disable servicelb \
     --node-taint node-role.kubernetes.io/master:NoSchedule \
-    --kubelet-arg 'cloud-provider=external'
+    --kubelet-arg 'cloud-provider=external' \
+    --flannel-iface ens10 \
+    --etcd-expose-metrics \
+    --kube-controller-manager-arg 'bind-address=0.0.0.0' \
+    --kube-proxy-arg 'metrics-bind-address=0.0.0.0' \
+    --kube-scheduler-arg 'bind-address=0.0.0.0'
 
 # manifestos addons
 while ! test -d /var/lib/rancher/k3s/server/manifests; do
