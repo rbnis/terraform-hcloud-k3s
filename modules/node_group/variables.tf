@@ -36,8 +36,8 @@ variable "k3s_channel" {
   default     = "stable"
 }
 
-variable "master_internal_ipv4" {
-  description = "Internal IP address (v4) of master node"
+variable "control_plane_internal_ipv4" {
+  description = "Internal IP address (v4) of control-plane node"
 }
 
 variable "floating_ips" {

@@ -50,10 +50,10 @@ module "cluster" {
   ssh_keys = [hcloud_ssh_key.default.id]
 }
 
-output "master_ipv4" {
+output "control_plane_ipv4" {
   depends_on  = [module.cluster]
-  description = "Public IP Address of the master node"
-  value       = module.cluster.master_ipv4
+  description = "Public IP Address of the control-plane node"
+  value       = module.cluster.control_plane_ipv4
 }
 
 output "nodes_ipv4" {
@@ -71,10 +71,10 @@ output "floating_IPs" {
 
 That's all it takes to get started!
 
-Pin to a specific module version using `version = "..."` to avoid upgrading to a version with breaking changes.  Upgrades to this module could potentially replace all master and worker nodes resulting in data loss.  The `terraform plan` will report this, but it may not be obvious.
+Pin to a specific module version using `version = "..."` to avoid upgrading to a version with breaking changes.  Upgrades to this module could potentially replace all control-plane and worker nodes resulting in data loss.  The `terraform plan` will report this, but it may not be obvious.
 
 
-Create an Hetzner Cloud Kubernetes cluster with one master and a node:
+Create an Hetzner Cloud Kubernetes cluster with one control-plane and a node:
 
 ```bash
 terraform apply
@@ -82,7 +82,7 @@ terraform apply
 
 This will do the following:
 
-* provisions Hetzner Cloud Instances with Ubuntu 20.04 (the instance type/size of the `master` and the `node` may be different)
+* provisions Hetzner Cloud Instances with Ubuntu 20.04 (the instance type/size of the `control_plane` and the `node` may be different)
 * installs K3S components and supporting binaries
 * joins the nodes in the cluster
   * installs Hetzner Cloud add-ons:
@@ -90,7 +90,7 @@ This will do the following:
     * [CCM](https://github.com/hetznercloud/hcloud-cloud-controller-manager) (Kubernetes cloud-controller-manager for Hetzner Cloud)
 * creates two bash scripts to setup/destroy new context in the kubectl admin config file for local `kubectl`
 
-After applying the Terraform plan you'll see several output variables like the master public IP and nodes IPs.
+After applying the Terraform plan you'll see several output variables like the control-plane public IP and nodes IPs.
 
 ```bash
 terraform destroy -force

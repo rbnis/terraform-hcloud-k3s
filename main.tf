@@ -31,13 +31,13 @@ module "floating_ip" {
   ip_count = each.value
 }
 
-module "master" {
-  source = "./modules/master"
+module "control_plane" {
+  source = "./modules/control_plane"
 
   cluster_name = var.cluster_name
   datacenter   = var.datacenter
   image        = var.image
-  node_type    = var.master_type
+  node_type    = var.control_plane_type
   ssh_keys     = var.ssh_keys
 
   hcloud_network_id = hcloud_network.private.id
@@ -48,7 +48,7 @@ module "master" {
 
   hcloud_token = var.hcloud_token
 
-  additional_user_data = var.master_user_data
+  additional_user_data = var.control_plane_user_data
 }
 
 module "node_group" {
@@ -58,7 +58,7 @@ module "node_group" {
   datacenter           = var.datacenter
   image                = var.image
   ssh_keys             = var.ssh_keys
-  master_internal_ipv4 = module.master.master_internal_ipv4
+  control_plane_internal_ipv4 = module.control_plane.control_plane_internal_ipv4
   floating_ips         = module.floating_ip
 
   hcloud_subnet_id = hcloud_network_subnet.subnet.id
@@ -76,6 +76,5 @@ module "node_group" {
 module "kubeconfig" {
   source       = "./modules/kubeconfig"
   cluster_name = var.cluster_name
-  master_ipv4  = module.master.master_ipv4
+  control_plane_ipv4  = module.control_plane.control_plane_ipv4
 }
-

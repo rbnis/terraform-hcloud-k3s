@@ -1,7 +1,7 @@
-output "master_ipv4" {
-  depends_on  = [module.master]
-  description = "Public IP Address of the master node"
-  value       = module.master.master_ipv4
+output "control_plane_ipv4" {
+  depends_on  = [module.control_plane]
+  description = "Public IP Address of the control-plane node"
+  value       = module.control_plane.control_plane_ipv4
 }
 
 

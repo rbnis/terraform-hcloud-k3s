@@ -3,7 +3,7 @@ resource "local_file" "setkubeconfig" {
     content  = templatefile(
       "${path.module}/templates/setkubeconfig", {
         cluster_name = var.cluster_name
-        master_ipv4 = var.master_ipv4
+        control_plane_ipv4 = var.control_plane_ipv4
       }
     )
 

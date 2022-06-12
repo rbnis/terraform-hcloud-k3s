@@ -1,5 +1,5 @@
-resource "hcloud_server" "master" {
-  name        = "${var.cluster_name}-master"
+resource "hcloud_server" "control_plane" {
+  name        = "${var.cluster_name}-controlplane"
   datacenter  = var.datacenter
   image       = var.image
   server_type = var.node_type
@@ -21,15 +21,15 @@ resource "hcloud_server" "master" {
   keep_disk   = true
 }
 
-resource "hcloud_server_network" "master" {
-  server_id = hcloud_server.master.id
+resource "hcloud_server_network" "control_plane" {
+  server_id = hcloud_server.control_plane.id
   subnet_id = var.hcloud_subnet_id
 }
 
-output "master_ipv4" {
-  value = hcloud_server.master.ipv4_address
+output "control_plane_ipv4" {
+  value = hcloud_server.control_plane.ipv4_address
 }
 
-output "master_internal_ipv4" {
-  value = hcloud_server_network.master.ip
+output "control_plane_internal_ipv4" {
+  value = hcloud_server_network.control_plane.ip
 }

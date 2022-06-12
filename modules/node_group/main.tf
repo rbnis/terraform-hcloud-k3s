@@ -22,7 +22,7 @@ resource "hcloud_server" "node" {
       k3s_token   = var.k3s_token
       k3s_channel = var.k3s_channel
 
-      master_internal_ipv4 = var.master_internal_ipv4
+      control_plane_internal_ipv4 = var.control_plane_internal_ipv4
 
       floating_ips =  local.floating_ips
 

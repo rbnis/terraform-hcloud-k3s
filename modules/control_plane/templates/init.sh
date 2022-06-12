@@ -14,7 +14,7 @@ curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=${k3s_channel} K3S_TOKEN=${k3
     --disable-cloud-controller \
     --disable traefik \
     --disable servicelb \
-    --node-taint node-role.kubernetes.io/master:NoSchedule \
+    --node-taint node-role.kubernetes.io/control-plane:NoSchedule \
     --kubelet-arg 'cloud-provider=external' \
     --flannel-iface ens10 \
     --etcd-expose-metrics \

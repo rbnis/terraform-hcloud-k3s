@@ -18,7 +18,7 @@ module "cluster" {
   hcloud_token = var.hcloud_token
   ssh_keys     = [hcloud_ssh_key.default.id]
 
-  master_type = "cx31"
+  control_plane_type = "cx31"
 
   node_groups = {
     "cx41" = 3
@@ -29,14 +29,14 @@ module "cluster" {
     "ipv4" = 1
   }
 
-  master_user_data = file("${path.module}/script-to-run-on-master.sh")
+  control_plane_user_data = file("${path.module}/script-to-run-on-controlplane.sh")
   node_user_data   = file("${path.module}/script-to-run-on-node.sh")
 }
 
-output "master_ipv4" {
+output "control_plane_ipv4" {
   depends_on  = [module.cluster]
-  description = "Public IP Address of the master node"
-  value       = module.cluster.master_ipv4
+  description = "Public IP Address of the control-plane node"
+  value       = module.cluster.control_plane_ipv4
 }
 
 output "nodes_ipv4" {

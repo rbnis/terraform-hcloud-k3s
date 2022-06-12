@@ -17,8 +17,8 @@ variable "image" {
   default     = "ubuntu-20.04"
 }
 
-variable "master_type" {
-  description = "Master node type (size)"
+variable "control_plane_type" {
+  description = "Control-plane node type (size)"
   default     = "cx21" # 2 vCPU, 4 GB RAM, 40 GB Disk space
 }
 
@@ -45,8 +45,8 @@ variable "floating_ips" {
   default = { }
 }
 
-variable "master_user_data" {
-  description = "Additional user_data that gets executed on the master in bash format"
+variable "control_plane_user_data" {
+  description = "Additional user_data that gets executed on the control-plane in bash format"
   default     = ""
 }
 

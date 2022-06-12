@@ -3,6 +3,6 @@ variable "cluster_name" {
   default     = "hetzner"
 }
 
-variable "master_ipv4" {
-  description = "IP address (v4) of master node"
+variable "control_plane_ipv4" {
+  description = "IP address (v4) of control-plane node"
 }
